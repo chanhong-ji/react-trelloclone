@@ -6,8 +6,7 @@ import Board from "./components/Board";
 
 const Wrapper = styled.div`
   display: flex;
-  max-width: 480px;
-  width: 100%;
+  width: 100vw;
   margin: 0 auto;
   justify-content: center;
   align-items: center;
@@ -15,9 +14,10 @@ const Wrapper = styled.div`
 `;
 
 const Boards = styled.div`
-  display: grid;
   width: 100%;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   gap: 10px;
 `;
 
@@ -28,12 +28,18 @@ const Trello = () => {
     if (!destination) {
       return;
     }
-    // setTodos((todos) => {
-    //   const copiedTodos = [...todos];
-    //   copiedTodos.splice(source.index, 1);
-    //   copiedTodos.splice(destination?.index, 0, draggableId);
-    //   return copiedTodos;
-    // });
+
+    if (source.droppableId === destination?.droppableId) {
+      setTodos((allBoards) => {
+        const copiedBoard = [...allBoards[source.droppableId]];
+        copiedBoard.splice(source.index, 1);
+        copiedBoard.splice(destination.index, 0, draggableId);
+        return {
+          ...allBoards,
+          [source.droppableId]: copiedBoard,
+        };
+      });
+    }
   }
 
   return (
