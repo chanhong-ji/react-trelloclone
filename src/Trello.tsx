@@ -14,10 +14,10 @@ const Wrapper = styled.div`
 `;
 
 const Boards = styled.div`
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  width: 100%;
   gap: 10px;
 `;
 
@@ -37,6 +37,18 @@ const Trello = () => {
         return {
           ...allBoards,
           [source.droppableId]: copiedBoard,
+        };
+      });
+    } else {
+      setTodos((allBoards) => {
+        const fromBoard = [...allBoards[source.droppableId]];
+        const toBoard = [...allBoards[destination.droppableId]];
+        fromBoard.splice(source.index, 1);
+        toBoard.splice(destination?.index, 0, draggableId);
+        return {
+          ...allBoards,
+          [source.droppableId]: fromBoard,
+          [destination.droppableId]: toBoard,
         };
       });
     }
