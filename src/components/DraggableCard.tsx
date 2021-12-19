@@ -16,7 +16,7 @@ interface ICard {
 
 const DraggableCard = ({ todo, index }: ICard) => {
   return (
-    <Draggable index={index} draggableId={todo} key={todo}>
+    <Draggable index={index} draggableId={todo}>
       {(provided) => (
         <Card
           ref={provided.innerRef}
