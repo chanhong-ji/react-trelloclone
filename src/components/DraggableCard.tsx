@@ -12,14 +12,15 @@ const Card = styled.div<{ isDragging: boolean }>`
     props.isDragging ? "0px 2px 5px rgba(0, 0, 0, 0.05)" : "none"};
 `;
 
-interface ICard {
-  todo: string;
+interface IDraggableCard {
+  todoText: string;
+  todoId: number;
   index: number;
 }
 
-const DraggableCard = ({ todo, index }: ICard) => {
+const DraggableCard = ({ todoText, todoId, index }: IDraggableCard) => {
   return (
-    <Draggable index={index} draggableId={todo}>
+    <Draggable index={index} draggableId={todoId + ""}>
       {(provided, info) => (
         <Card
           ref={provided.innerRef}
@@ -27,7 +28,7 @@ const DraggableCard = ({ todo, index }: ICard) => {
           {...provided.dragHandleProps}
           isDragging={info.isDragging}
         >
-          {todo}
+          {todoText}
         </Card>
       )}
     </Draggable>
