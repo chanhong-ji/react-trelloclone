@@ -37,8 +37,17 @@ const Area = styled.div<IAreaProps>`
 
 const Form = styled.form`
   width: 100%;
+  display: flex;
+  padding: 0 20px;
   input {
     width: 100%;
+    height: 30px;
+    border: none;
+  }
+  button {
+    background: none;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.1);
   }
 `;
 interface IBoardProps {

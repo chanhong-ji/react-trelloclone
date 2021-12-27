@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
@@ -22,15 +23,14 @@ const Boards = styled.div`
 `;
 
 const Trello = () => {
-  const [todos, setTodos] = useRecoilState(todosState);
+  const [todoBoards, setTodoBoards] = useRecoilState(todosState);
 
   function onDragEnd({ source, destination }: DropResult) {
     if (!destination) {
       return;
     }
-
     if (source.droppableId === destination?.droppableId) {
-      setTodos((allBoards) => {
+      setTodoBoards((allBoards) => {
         const copiedBoard = [...allBoards[source.droppableId]];
         const targetTodo = copiedBoard.splice(source.index, 1);
         copiedBoard.splice(destination.index, 0, targetTodo[0]);
@@ -40,7 +40,7 @@ const Trello = () => {
         };
       });
     } else {
-      setTodos((allBoards) => {
+      setTodoBoards((allBoards) => {
         const fromBoard = [...allBoards[source.droppableId]];
         const toBoard = [...allBoards[destination.droppableId]];
         const targetTodo = fromBoard.splice(source.index, 1);
@@ -54,12 +54,20 @@ const Trello = () => {
     }
   }
 
+  useEffect(() => {
+    localStorage.setItem("todoBoards", JSON.stringify(todoBoards));
+  }, [todoBoards]);
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Wrapper>
         <Boards>
-          {Object.keys(todos).map((boardId) => (
-            <Board boardId={boardId} todos={todos[boardId]} key={boardId} />
+          {Object.keys(todoBoards).map((boardId) => (
+            <Board
+              boardId={boardId}
+              todos={todoBoards[boardId]}
+              key={boardId}
+            />
           ))}
         </Boards>
       </Wrapper>

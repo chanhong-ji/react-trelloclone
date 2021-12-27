@@ -1,4 +1,10 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
+
+const defaultBoard = {
+  "To Do": [],
+  Doing: [],
+  Done: [],
+};
 
 export interface ITodo {
   id: number;
@@ -11,12 +17,16 @@ interface ITodos {
 
 export const todosState = atom<ITodos>({
   key: "todos",
-  default: {
-    "To Do": [
-      { id: 12, text: "hello" },
-      { id: 13, text: "hellooo" },
-    ],
-    Doing: [],
-    Done: [],
+  default: JSON.parse(
+    localStorage.getItem("todoBoards") || JSON.stringify(defaultBoard)
+  ),
+});
+
+export const boardState = selector({
+  key: "boardState",
+  get: ({ get }) => {
+    const todoBoards = get(todosState);
+    const boardList = Object.keys(todoBoards);
+    return boardList;
   },
 });
