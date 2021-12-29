@@ -21,16 +21,18 @@ interface IDraggableCard {
 const DraggableCard = ({ todoText, todoId, index }: IDraggableCard) => {
   return (
     <Draggable index={index} draggableId={todoId + ""}>
-      {(provided, info) => (
-        <Card
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          isDragging={info.isDragging}
-        >
-          {todoText}
-        </Card>
-      )}
+      {(provided, info) => {
+        return (
+          <Card
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            isDragging={info.isDragging}
+          >
+            {todoText}
+          </Card>
+        );
+      }}
     </Draggable>
   );
 };

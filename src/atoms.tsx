@@ -1,4 +1,4 @@
-import { atom, selector } from "recoil";
+import { atom } from "recoil";
 
 const defaultBoard = {
   "To Do": [],
@@ -22,11 +22,9 @@ export const todosState = atom<ITodos>({
   ),
 });
 
-export const boardState = selector({
+export const boardState = atom<string[]>({
   key: "boardState",
-  get: ({ get }) => {
-    const todoBoards = get(todosState);
-    const boardList = Object.keys(todoBoards);
-    return boardList;
-  },
+  default: JSON.parse(
+    localStorage.getItem("boards") || JSON.stringify(["To Do", "Doing", "Done"])
+  ),
 });
