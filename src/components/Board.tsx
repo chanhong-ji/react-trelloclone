@@ -113,6 +113,7 @@ const Board = ({ todos, boardId, index }: IBoardProps) => {
                     todoId={todo.id}
                     index={index}
                     key={todo.id}
+                    boardId={boardId}
                   />
                 ))}
                 {provided.placeholder}
