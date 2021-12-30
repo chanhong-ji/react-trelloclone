@@ -9,6 +9,7 @@ const Container = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
@@ -20,6 +21,17 @@ const Boards = styled.div`
   gap: 10px;
   background-color: pink;
   padding: 10px;
+  position: relative;
+`;
+
+const Trash = styled.div`
+  margin-top: 50px;
+`;
+
+const Svg = styled.svg`
+  width: 50px;
+  height: 50px;
+  color: rgba(0, 0, 0, 0.1);
 `;
 
 const Trello = () => {
@@ -31,8 +43,15 @@ const Trello = () => {
       return;
     }
     if (type === "board") {
-      if (destination?.droppableId !== "boards") {
-        return;
+      if (destination.droppableId === "trash") {
+        setTodoBoards((prevBoards) => {
+          const copiedBoards = { ...prevBoards };
+          delete copiedBoards[boards[source.index]];
+          return copiedBoards;
+        });
+        setBoards((prev) => {
+          return prev.filter((board) => board !== prev[source.index]);
+        });
       } else {
         setBoards((boards) => {
           const copiedBoards = [...boards];
@@ -78,10 +97,10 @@ const Trello = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="boards" direction="horizontal" type="board">
-        {(provided, snapshot) => {
-          return (
-            <Container>
+      <Container>
+        <Droppable droppableId="boards" direction="horizontal" type="board">
+          {(provided) => {
+            return (
               <Boards ref={provided.innerRef} {...provided.droppableProps}>
                 {boards.map((boardId, index) => (
                   <Board
@@ -93,10 +112,34 @@ const Trello = () => {
                 ))}
                 {provided.placeholder}
               </Boards>
-            </Container>
-          );
-        }}
-      </Droppable>
+            );
+          }}
+        </Droppable>
+        <Droppable droppableId="trash" type="board">
+          {(provided) => {
+            return (
+              <Trash ref={provided.innerRef} {...provided.droppableProps}>
+                <Svg
+                  aria-hidden="true"
+                  focusable="false"
+                  data-prefix="fas"
+                  data-icon="trash"
+                  role="img"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 448 512"
+                  className="svg-inline--fa fa-trash fa-w-14 fa-3x"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+                  ></path>
+                </Svg>
+                <div style={{ display: "none" }}>{provided.placeholder}</div>
+              </Trash>
+            );
+          }}
+        </Droppable>
+      </Container>
     </DragDropContext>
   );
 };
