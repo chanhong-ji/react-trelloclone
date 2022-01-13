@@ -8,12 +8,12 @@ import DraggableCard from "./DraggableCard";
 
 const Container = styled.div`
   width: 300px;
-  background-color: ${(props) => props.theme.boardColor};
   border-radius: 5px;
   min-height: 300px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  border: 2px solid rgba(0, 0, 0, 0.3);
 `;
 
 const Title = styled.h2<{ isDragging: boolean }>`
@@ -22,7 +22,9 @@ const Title = styled.h2<{ isDragging: boolean }>`
   margin-bottom: 10px;
   padding: 10px;
   font-size: 18px;
-  background-color: ${(props) => (props.isDragging ? "green" : "transparent")};
+  background-color: ${(props) =>
+    props.isDragging ? "rgba(0, 0, 0, 0.6)" : "transparent"};
+  color: ${(props) => (props.isDragging ? "white" : "inherit")};
 `;
 
 const Area = styled.div<IAreaProps>`

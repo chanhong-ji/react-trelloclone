@@ -14,24 +14,30 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Boards = styled.div`
+const Boards = styled.div<{ isDraggingOver: boolean }>`
   display: flex;
   justify-content: center;
   align-items: flex-start;
   gap: 10px;
-  background-color: pink;
-  padding: 10px;
+  padding: 60px;
   position: relative;
+  background-color: ${(props) =>
+    props.isDraggingOver ? "whiteSmoke" : "transparent"};
 `;
 
-const Trash = styled.div`
+const Trash = styled.div<{ isDraggingOver: boolean }>`
   margin-top: 50px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  svg {
+    color: ${(props) => (props.isDraggingOver ? "grey" : "rgba(0, 0, 0, 0.1)")};
+  }
 `;
 
 const Svg = styled.svg`
   width: 50px;
   height: 50px;
-  color: rgba(0, 0, 0, 0.1);
 `;
 
 const Trello = () => {
@@ -99,9 +105,15 @@ const Trello = () => {
     <DragDropContext onDragEnd={onDragEnd}>
       <Container>
         <Droppable droppableId="boards" direction="horizontal" type="board">
-          {(provided) => {
+          {(provided, info) => {
+            console.log(info);
+
             return (
-              <Boards ref={provided.innerRef} {...provided.droppableProps}>
+              <Boards
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                isDraggingOver={info.isDraggingOver}
+              >
                 {boards.map((boardId, index) => (
                   <Board
                     boardId={boardId}
@@ -116,9 +128,13 @@ const Trello = () => {
           }}
         </Droppable>
         <Droppable droppableId="trash" type="board">
-          {(provided) => {
+          {(provided, info) => {
             return (
-              <Trash ref={provided.innerRef} {...provided.droppableProps}>
+              <Trash
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                isDraggingOver={info.isDraggingOver}
+              >
                 <Svg
                   aria-hidden="true"
                   focusable="false"
