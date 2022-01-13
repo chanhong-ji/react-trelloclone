@@ -1,25 +1,42 @@
 import { useEffect } from "react";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
+import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { boardState, todosState } from "./atoms";
 import Board from "./components/Board";
 
 const Container = styled.div`
-  width: 100vw;
   height: 100vh;
+  width: fit-content;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  padding-top: 100px;
+  padding-bottom: 50px;
 `;
+
+const CategoryForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+`;
+
+interface ICategoryForm {
+  category: string;
+}
 
 const Boards = styled.div<{ isDraggingOver: boolean }>`
   display: flex;
-  justify-content: center;
+  min-width: 100vw;
+  justify-content: flex-start;
   align-items: flex-start;
+  padding-left: 10px;
   gap: 10px;
-  padding: 60px;
   position: relative;
   background-color: ${(props) =>
     props.isDraggingOver ? "whiteSmoke" : "transparent"};
@@ -101,13 +118,35 @@ const Trello = () => {
     localStorage.setItem("boards", JSON.stringify(boards));
   }, [boards]);
 
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+    setError,
+  } = useForm();
+
+  function onCategorySubmit({ category }: ICategoryForm) {
+    if (category in todoBoards) {
+      setError("category", { message: "Already exist" }, { shouldFocus: true });
+      return;
+    }
+    setTodoBoards((prevBoards) => ({ ...prevBoards, [category]: [] }));
+    setBoards((prevBoards) => [...prevBoards, category]);
+    setValue("category", "");
+  }
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Container>
+        <CategoryForm onSubmit={handleSubmit(onCategorySubmit)}>
+          <label htmlFor="category">New Category</label>
+          <input {...register("category", { required: true, minLength: 2 })} />
+          <span>{errors?.category?.message}</span>
+          <button>Create</button>
+        </CategoryForm>
         <Droppable droppableId="boards" direction="horizontal" type="board">
           {(provided, info) => {
-            console.log(info);
-
             return (
               <Boards
                 ref={provided.innerRef}

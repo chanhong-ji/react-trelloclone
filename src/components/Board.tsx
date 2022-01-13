@@ -18,7 +18,7 @@ const Container = styled.div`
 
 const Title = styled.h2<{ isDragging: boolean }>`
   text-align: center;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 10px;
   padding: 10px;
   font-size: 18px;
