@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { darkTheme } from "./theme";
 import Trello from "./Trello";
@@ -67,7 +68,13 @@ function App() {
     <>
       <ThemeProvider theme={darkTheme}>
         <GlobalStyle />
-        <Trello />
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
+          <Switch>
+            <Route exact path="/">
+              <Trello />
+            </Route>
+          </Switch>
+        </BrowserRouter>
       </ThemeProvider>
     </>
   );
