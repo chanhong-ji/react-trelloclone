@@ -52,7 +52,8 @@
   "devDependencies": {
     "@types/react-beautiful-dnd": "^13.1.2",
     "@types/react-router-dom": "^5.3.2",
-    "@types/styled-components": "^5.1.17"
+    "@types/styled-components": "^5.1.17",
+    "mini-css-extract-plugin": "2.4.5"
   },
   "homepage": "https://chanhong-ji.github.io/react-trelloclone"
 }

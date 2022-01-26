@@ -3,8 +3,8 @@ import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { boardState, todosState } from "./atoms";
-import Board from "./components/Board";
+import { boardState, todosState } from "../atoms";
+import Board from "./Board";
 
 const Container = styled.div`
   height: 100vh;
