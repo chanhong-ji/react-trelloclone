@@ -56,10 +56,6 @@ const Wrapper = styled.div`
   }
 `;
 
-interface ICategoryForm {
-  category: string;
-}
-
 function Header() {
   const [todoBoards, setTodoBoards] = useRecoilState(todosState);
   const setBoards = useSetRecoilState(boardState);
@@ -70,9 +66,11 @@ function Header() {
     formState: { errors },
     setError,
     clearErrors,
-  } = useForm();
+    getValues,
+  } = useForm<{ category: string }>();
 
-  function onCategorySubmit({ category }: ICategoryForm) {
+  const onCategorySubmit = () => {
+    const { category } = getValues();
     if (category in todoBoards) {
       setError("category", { message: "Already exist" }, { shouldFocus: true });
       return;
@@ -80,7 +78,8 @@ function Header() {
     setTodoBoards((prevBoards) => ({ ...prevBoards, [category]: [] }));
     setBoards((prevBoards) => [...prevBoards, category]);
     setValue("category", "");
-  }
+  };
+
   return (
     <Wrapper>
       <Column>
