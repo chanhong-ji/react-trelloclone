@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/react-trelloclone/static/js/main.db58c691.chunk.js",
-    "main.js.map": "/react-trelloclone/static/js/main.db58c691.chunk.js.map",
-    "runtime-main.js": "/react-trelloclone/static/js/runtime-main.c8f043f7.js",
-    "runtime-main.js.map": "/react-trelloclone/static/js/runtime-main.c8f043f7.js.map",
-    "static/js/2.a7648339.chunk.js": "/react-trelloclone/static/js/2.a7648339.chunk.js",
-    "static/js/2.a7648339.chunk.js.map": "/react-trelloclone/static/js/2.a7648339.chunk.js.map",
+    "main.js": "/react-trelloclone/static/js/main.f2e08d78.chunk.js",
+    "main.js.map": "/react-trelloclone/static/js/main.f2e08d78.chunk.js.map",
+    "runtime-main.js": "/react-trelloclone/static/js/runtime-main.18bc0bf4.js",
+    "runtime-main.js.map": "/react-trelloclone/static/js/runtime-main.18bc0bf4.js.map",
+    "static/js/2.f586262b.chunk.js": "/react-trelloclone/static/js/2.f586262b.chunk.js",
+    "static/js/2.f586262b.chunk.js.map": "/react-trelloclone/static/js/2.f586262b.chunk.js.map",
     "index.html": "/react-trelloclone/index.html",
-    "static/js/2.a7648339.chunk.js.LICENSE.txt": "/react-trelloclone/static/js/2.a7648339.chunk.js.LICENSE.txt"
+    "static/js/2.f586262b.chunk.js.LICENSE.txt": "/react-trelloclone/static/js/2.f586262b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.c8f043f7.js",
-    "static/js/2.a7648339.chunk.js",
-    "static/js/main.db58c691.chunk.js"
+    "static/js/runtime-main.18bc0bf4.js",
+    "static/js/2.f586262b.chunk.js",
+    "static/js/main.f2e08d78.chunk.js"
   ]
 }
