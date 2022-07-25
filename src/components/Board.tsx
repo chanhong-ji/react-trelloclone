@@ -1,30 +1,32 @@
 import React from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { useForm } from "react-hook-form";
+import { FaCheck } from "react-icons/fa";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ITodo, todosState } from "../atoms";
 import DraggableCard from "./DraggableCard";
 
-const Container = styled.div`
+const Container = styled.div<{ isDragging: boolean }>`
   width: 300px;
   border-radius: 5px;
   min-height: 300px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 2px solid rgba(0, 0, 0, 0.3);
+  background-color: ${(p) => p.theme.color.board};
+  opacity: ${(p) => (p.isDragging ? 0.7 : 1)};
+  border: 1px solid ${(p) => p.theme.color.border};
 `;
 
 const Title = styled.h2<{ isDragging: boolean }>`
   text-align: center;
-  font-weight: 500;
   margin-bottom: 10px;
   padding: 10px;
-  font-size: 18px;
-  background-color: ${(props) =>
-    props.isDragging ? "rgba(0, 0, 0, 0.6)" : "transparent"};
-  color: ${(props) => (props.isDragging ? "white" : "inherit")};
+  font-size: 25px;
+  background-color: ${(p) =>
+    p.isDragging ? p.theme.color.accent : "transparent"};
+  color: ${(p) => (p.isDragging ? "white" : p.theme.color.accent)};
 `;
 
 const Area = styled.div<IAreaProps>`
@@ -42,16 +44,25 @@ const Area = styled.div<IAreaProps>`
 const Form = styled.form`
   width: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 0 20px;
   input {
     width: 100%;
-    height: 30px;
-    border: none;
+    height: 35px;
+    border: 1px solid ${(p) => p.theme.color.border};
+    border-radius: 6px;
+    padding-left: 10px;
+    outline-color: rgba(0, 0, 0, 0.4);
+    font-size: 15px;
+    ::placeholder {
+      color: rgba(0, 0, 0, 0.4);
+    }
   }
-  button {
-    background: none;
-    border: none;
-    background-color: rgba(0, 0, 0, 0.1);
+  .submit {
+    color: ${(p) => p.theme.color.accent};
+    opacity: 0.7;
+    margin-left: 10px;
   }
 `;
 interface IBoardProps {
@@ -90,18 +101,22 @@ const Board = ({ todos, boardId, index }: IBoardProps) => {
   return (
     <Draggable draggableId={boardId} index={index}>
       {(provided, info) => (
-        <Container ref={provided.innerRef} {...provided.draggableProps}>
+        <Container
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          isDragging={info.isDragging}
+        >
           <Title {...provided.dragHandleProps} isDragging={info.isDragging}>
             {boardId}
           </Title>
           <Form onSubmit={handleSubmit(onValid)}>
             <input
               {...register("todo", { required: "Required" })}
-              placeholder="Write Todo..."
+              placeholder='Write Todo...'
             />
-            <button>Create</button>
+            <FaCheck className='submit' onClick={handleSubmit(onValid)} />
           </Form>
-          <Droppable droppableId={boardId} type="card">
+          <Droppable droppableId={boardId} type='card'>
             {(provided, info) => (
               <Area
                 ref={provided.innerRef}

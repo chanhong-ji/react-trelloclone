@@ -28,3 +28,8 @@ export const boardState = atom<string[]>({
     localStorage.getItem("boards") || JSON.stringify(["To Do", "Doing", "Done"])
   ),
 });
+
+export const isDarkState = atom<boolean>({
+  key: "isDarkState",
+  default: true,
+});
