@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/react-trelloclone/static/js/main.e96e7a6f.chunk.js",
-    "main.js.map": "/react-trelloclone/static/js/main.e96e7a6f.chunk.js.map",
+    "main.js": "/react-trelloclone/static/js/main.db58c691.chunk.js",
+    "main.js.map": "/react-trelloclone/static/js/main.db58c691.chunk.js.map",
     "runtime-main.js": "/react-trelloclone/static/js/runtime-main.c8f043f7.js",
     "runtime-main.js.map": "/react-trelloclone/static/js/runtime-main.c8f043f7.js.map",
     "static/js/2.a7648339.chunk.js": "/react-trelloclone/static/js/2.a7648339.chunk.js",
@@ -12,6 +12,6 @@
   "entrypoints": [
     "static/js/runtime-main.c8f043f7.js",
     "static/js/2.a7648339.chunk.js",
-    "static/js/main.e96e7a6f.chunk.js"
+    "static/js/main.db58c691.chunk.js"
   ]
 }
